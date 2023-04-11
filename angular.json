@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-http-basics": {
+    "my-social-network": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ng-http-basics",
+            "outputPath": "dist/my-social-network",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ng-http-basics:build:production"
+              "browserTarget": "my-social-network:build:production"
             },
             "development": {
-              "browserTarget": "ng-http-basics:build:development"
+              "browserTarget": "my-social-network:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-http-basics:build"
+            "browserTarget": "my-social-network:build"
           }
         },
         "test": {
