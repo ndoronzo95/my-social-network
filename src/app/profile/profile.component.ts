@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { User } from '../api/models';
+import { Post, User } from '../api/models';
 
 @Component({
   selector: 'app-profile',
@@ -8,5 +8,5 @@ import { User } from '../api/models';
 })
 export class ProfileComponent {
   @Input() user!: User;
-  mockPost = { id: 0, title: 'hello', body:'world', userId: 1 }
+  @Input() posts: Post[] = [];
 }

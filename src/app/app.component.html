@@ -1,1 +1,5 @@
-<app-profile [user]="mockUser"></app-profile>
+<app-profile
+  *ngIf="user$ | async as thirdUser"
+  [user]="thirdUser"
+  [posts]="(posts$ | async) || []"
+></app-profile>

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { User } from './api/models';
+import { Component, OnInit } from '@angular/core';
+import { Post, User } from './api/models';
+import { UserService } from './api/user.service';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -8,27 +10,10 @@ import { User } from './api/models';
 })
 export class AppComponent {
   title = 'my-social-network';
-  mockUser: User = {
-    id: 1,
-    name: 'Leanne Graham',
-    username: 'Bret',
-    email: 'Sincere@april.biz',
-    address: {
-      street: 'Kulas Light',
-      suite: 'Apt. 556',
-      city: 'Gwenborough',
-      zipcode: '92998-3874',
-      geo: {
-        lat: '-37.3159',
-        lng: '81.1496',
-      },
-    },
-    phone: '1-770-736-8031 x56442',
-    website: 'hildegard.org',
-    company: {
-      name: 'Romaguera-Crona',
-      catchPhrase: 'Multi-layered client-server neural-net',
-      bs: 'harness real-time e-markets',
-    },
-  };
+  user$ = this.userService.getUsers().pipe(map((users) => users[3]));
+  posts$ = this.user$.pipe(
+    switchMap((user) => this.userService.getPostsByUserId(user.id))
+  );
+
+  constructor(private userService: UserService) {}
 }
