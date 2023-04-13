@@ -12,9 +12,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SignInFormComponent } from './sign-in-form/sign-in-form.component';
+import { AddressInputsComponent } from './address-inputs/address-inputs.component';
 
 @NgModule({
-  declarations: [AppComponent, PostComponent, ProfileComponent, LoginComponent],
+  declarations: [AppComponent, PostComponent, ProfileComponent, LoginComponent, SignInFormComponent, AddressInputsComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
