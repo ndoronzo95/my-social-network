@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -14,9 +14,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignInFormComponent } from './sign-in-form/sign-in-form.component';
 import { AddressInputsComponent } from './address-inputs/address-inputs.component';
+import { ActivatedRouteSnapshot, RouterModule } from '@angular/router';
+import { UserService } from './api/user.service';
+import { map, switchMap } from 'rxjs';
 
 @NgModule({
-  declarations: [AppComponent, PostComponent, ProfileComponent, LoginComponent, SignInFormComponent, AddressInputsComponent],
+  declarations: [
+    AppComponent,
+    PostComponent,
+    ProfileComponent,
+    LoginComponent,
+    SignInFormComponent,
+    AddressInputsComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -26,7 +36,41 @@ import { AddressInputsComponent } from './address-inputs/address-inputs.componen
     MatCardModule,
     MatButtonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule,
+    RouterModule.forRoot([
+      {
+        path: 'login',
+        component: LoginComponent,
+      },
+      {
+        path: 'profile/:id',
+        component: ProfileComponent,
+        resolve: {
+          user: (snapshot: ActivatedRouteSnapshot) => {
+            const id: string = snapshot.params['id'];
+            const userService = inject(UserService);
+            return userService
+              .getUsers()
+              .pipe(map((users) => users.find((u) => u.id === Number(id))));
+          },
+          posts: (snapshot: ActivatedRouteSnapshot) => {
+            const id: string = snapshot.params['id'];
+            const userService = inject(UserService);
+            return userService
+              .getUsers()
+              .pipe(
+                map((users) => users.find((u) => u.id === Number(id))!),
+                switchMap((user) => userService.getPostsByUserId(user.id))
+              );
+          },
+        },
+      },
+      {
+        path: 'sign-in',
+        component: SignInFormComponent,
+      },
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent],
