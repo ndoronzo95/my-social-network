@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ng-http-basics'`, () => {
+  it(`should have as title 'my-social-network'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('ng-http-basics');
+    expect(app.title).toEqual('my-social-network');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('ng-http-basics app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('my-social-network app is running!');
   });
 });
